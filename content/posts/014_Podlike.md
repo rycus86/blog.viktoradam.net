@@ -257,7 +257,7 @@ It then starts the individual components one-by-one, in random order. ~~Compose-
 
 The container is configured to use the controller's [cgroup](https://en.wikipedia.org/wiki/Cgroups#Namespace_isolation) as the *cgroup* parent (like `--cgroup-parent`), and the *IPC* (`--ipc container:<controller>`) and network *namespaces* (`--network container:<controller>`) are always shared by the controller. The *PID namespace* (`--pid container:<controller>`) is shared by default, but can be disabled with the `-pids=false` flag. Volumes visible on the controller are shared by default as well (`--volumes-from <controller>`), but can also be disabled with `-volumes=false`. The components are started with the auto-remove flag (`--rm`) set, that should *hopefully* help making sure they are cleaned up properly, but at the same time, it can make *post-mortems* a bit difficult.
 
-{{% img "/images/2018/05/podlike-1.png" "Components" %}}
+{{% img "/images/posts/2018/05/podlike-1.png" "Components" %}}
 
 If the controller is set to always *pull* the images of the components, with the `-pull` flag, this is done before the first create attempt. Otherwise, if the container creation fails because of the missing image, the controller will attempt to *pull* it, and retry creating the container again.
 

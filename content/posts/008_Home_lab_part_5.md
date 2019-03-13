@@ -213,7 +213,7 @@ In *Kibana*, we just have to configure the index pattern once to hook it up. In 
 
 The end result looks something like this:
 
-{{% img "/images/2018/02/kibana-min.png" "Kibana" %}}
+{{% img "/images/posts/2018/02/kibana-min.png" "Kibana" %}}
 
 ## Monitoring
 
@@ -396,13 +396,13 @@ The `prometheus-job` label tells about the fact, that the service exposes a metr
 
 How you visualize the data you collect, is totally up to you. The end result could look similar to this:
 
-{{% img "/images/2018/02/grafana-min.png" "Grafana" %}}
+{{% img "/images/posts/2018/02/grafana-min.png" "Grafana" %}}
 
 One thing to keep in mind though, *Prometheus* has a default retention policy of *15 days*, if you need more or less, don't forget to adjust it. For long-term storage, it's recommended you get *Prometheus* to forward the metrics into something that is designed for storing them, like [InfluxDB](https://www.influxdata.com/).
 
 Before wrapping up the monitoring section, I need to mention another cool project I have running in my stack. [Portainer](https://portainer.io/) is an awesome *Node.js* dashboard for Docker, that gives you all the information you need at a glance. You can view all the containers, images, services, stacks, configs, etc. your Docker instance is managing. Wait, *there's more*, you can also control the Docker instance through it! For example, you can list out all the unused images and delete them. The same goes for volumes. You can filter the non-running containers too, and delete them at once. Having an awesome UI is really just the cherry on top.
 
-{{% img "/images/2018/02/portainer-min.png" "Portainer" %}}
+{{% img "/images/posts/2018/02/portainer-min.png" "Portainer" %}}
 
 ## What else?
 

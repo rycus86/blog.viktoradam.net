@@ -1,5 +1,11 @@
 .idea/
 .venv/
+
+# generated site
+public/
+
+# generated resources
 resources/
 
+# migration scripts
 *.py

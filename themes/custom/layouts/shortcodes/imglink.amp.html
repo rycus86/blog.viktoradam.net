@@ -9,8 +9,8 @@
     <amp-img src="{{ $imageRef }}" alt="{{ $imageAlt }}" width="600" height="400" layout="responsive"></amp-img>
     {{ end }}
 {{ else }}
-    {{ with imageConfig (printf "content/%s" $imageRef) }}
-        <amp-img src="{{ $imageRef }}" alt="{{ $imageAlt }}" width="{{ .Width }}" height="{{ .Height }}" layout="responsive"></amp-img>
+    {{ with (resources.Get $imageRef).Resize "600x q50 Lanczos" }}
+        <amp-img src="{{ .Permalink }}" alt="{{ $imageAlt }}" width="{{ .Width }}" height="{{ .Height }}" layout="responsive"></amp-img>
     {{ end }}
 {{ end }}
 </a>
