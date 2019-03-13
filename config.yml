@@ -15,6 +15,9 @@ params:
   showSubscribe: true
   amp: true
 
+enableRobotsTXT: true
+disqusShortname: viktoradam
+
 disableKinds:
   - taxonomyTerm
 
@@ -41,9 +44,6 @@ outputs:
   page:
     - HTML
     - AMP
-
-enableRobotsTXT: true
-disqusShortname: viktoradam
 
 menu:
   main:
