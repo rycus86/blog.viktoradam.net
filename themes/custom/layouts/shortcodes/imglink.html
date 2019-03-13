@@ -1,3 +1,13 @@
 <a href="{{ .Get 0 }}">
-    <img src="{{ .Get 1 }}" alt="{{ .Get 2 }}"/>
+{{ $imageRef := (.Get 1) }}
+{{ $imageAlt := (.Get 2) }}
+{{ if hasPrefix $imageRef "http" }}
+    <img src="{{ $imageRef }}" alt="{{ $imageAlt }}"/>
+{{ else }}
+    {{ with imageConfig (printf "assets/%s" $imageRef) }}
+        {{ with (resources.Get $imageRef).Resize (printf "%dx q50 Lanczos" .Width) }}
+        <img src="{{ .Permalink }}" alt="{{ $imageAlt }}"/>
+        {{ end }}
+    {{ end }}
+{{ end }}
 </a>

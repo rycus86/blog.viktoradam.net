@@ -4,7 +4,9 @@
     <!-- hacks until I figure out something better for getting the dimensions of remote images -->
     <amp-img src="{{ $imageRef }}" alt="{{ $imageAlt }}" width="600" height="400" layout="responsive"></amp-img>
 {{ else }}
-    {{ with (resources.Get $imageRef).Resize "600x q50 Lanczos" }}
+    {{ with imageConfig (printf "assets/%s" $imageRef) }}
+        {{ with (resources.Get $imageRef).Resize (printf "%dx q50 Lanczos" .Width) }}
         <amp-img src="{{ .Permalink }}" alt="{{ $imageAlt }}" width="{{ .Width }}" height="{{ .Height }}" layout="responsive"></amp-img>
+        {{ end }}
     {{ end }}
 {{ end }}
