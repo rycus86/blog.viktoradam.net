@@ -1,0 +1,23 @@
+{{ partial "head" . }}
+
+<body class="home-template">
+    <div class="site-wrapper">
+        {{ partial "header-home" . }}
+
+        <main id="site-main" class="site-main outer" role="main">
+            <div class="inner">
+                <div class="post-feed">
+                    {{ partial "post-list" . }}
+                </div>
+            </div>
+        </main>
+
+        <section class="site-pagination">
+            {{ template "_internal/pagination.html" . }}
+        </section>
+
+        {{ partial "footer" . }}
+    </div>
+</body>
+
+</html>

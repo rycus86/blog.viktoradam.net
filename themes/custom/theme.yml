@@ -1,0 +1,12 @@
+name: 'TODO Custom Theme'
+license: 'MIT'
+description: 'TODO custom theme'
+tags:
+  - blog
+features:
+  - posts
+  - comments
+
+author:
+  name: Viktor Adam
+  homepage: 'https://blog.viktoradam.net'

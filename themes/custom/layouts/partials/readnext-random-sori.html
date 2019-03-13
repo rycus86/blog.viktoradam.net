@@ -1,0 +1,33 @@
+{{ $firstTag := first 1 .Params.tags }}
+{{ $posts := (where .Site.RegularPages ".Params.tags" "intersect" $firstTag) }}{{ $postCount := len $posts }}
+{{if ge $postCount 3}}{{ $currentPage := . }}
+{{ $mainCover := .Site.Params.mainCover }}
+<article class="read-next-card" {{if $mainCover}}{{ $imgCover := (resources.Get $mainCover).Resize "600x q50 Lanczos" }}
+            style="background-image: url({{ $imgCover.Permalink }});" {{else}}style="background-color: #090a0b;"{{end}}>
+    <header class="read-next-card-header">
+        <small class="read-next-card-header-sitetitle">&mdash; {{.Site.Title}} &mdash;</small>
+        {{if .Params.tags }}{{ range $index, $tag := .Params.tags }}{{if lt $index 1}}
+        <h3 class="read-next-card-header-title">
+            {{with $.Site.GetPage ( printf "tags/%s" (urlize $tag))}}
+            <a href="{{.Permalink}}">{{.Title}}</a>
+            {{end}}
+        </h3>{{end}}{{end}}{{ end }}
+    </header>
+    <div class="read-next-divider">
+        {{ partial "svg-readnext-divider" . }}
+    </div>
+
+    <div class="read-next-card-content">
+      {{$.Scratch.Set "pc" 0}}
+        <ul>{{range sort $posts "Date" "desc" }}{{if (lt ($.Scratch.Get "pc") 3)}}
+          {{if (ne .Permalink $currentPage.Permalink)}}<li><a href="{{.Permalink}}">{{.Title}}</a></li>{{$.Scratch.Add "pc" 1}}{{end}}            
+        {{end}}{{end}}</ul>
+    </div>
+    <footer class="read-next-card-footer">
+      {{if .Params.tags }}{{ range $index, $tag := .Params.tags }}{{if lt $index 1}}
+        {{with $.Site.GetPage ( printf "tags/%s" (urlize $tag))}}
+        <a href="{{ .Permalink }}">See all {{ sub $postCount 1 }} posts →</a>
+      {{end}}{{end}}{{ end }}{{end}}
+    </footer>
+</article>
+{{end}}

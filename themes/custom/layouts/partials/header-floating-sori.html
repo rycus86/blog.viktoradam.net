@@ -1,0 +1,29 @@
+<div class="floating-header">
+  <div class="floating-header-logo">
+    <a href="{{"/" | absURL}}">
+      {{ if .Site.Params.logoImage }}
+      {{ $logoImage := .Site.Params.logoImage }}
+      {{ $imgLogo := (resources.Get $logoImage).Resize "25x25 q90 Lanczos" }}
+      <img src="{{ $imgLogo.Permalink }}" alt="{{.Site.Title}}" />{{end}}
+      <span>{{.Site.Title}}</span>
+    </a>
+  </div>
+  <span class="floating-header-divider">&mdash;</span>
+  <div class="floating-header-title">{{.Title}}</div>
+  <div class="floating-header-share">
+    <a class="floating-header-share-tw" href="https://twitter.com/share?text={{.Title | safeHTML}}&amp;url={{.Permalink}}"
+          onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+          {{ partial "svg-twitter" . }}
+      </a>
+      <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u={{.Permalink}}"
+          onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+          {{ partial "svg-facebook" . }}
+      </a>
+  </div>
+
+  <progress class="progress" value="0">
+    <div class="progress-container">
+      <span class="progress-bar"></span>
+    </div>
+  </progress>
+</div>

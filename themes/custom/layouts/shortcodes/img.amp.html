@@ -1,0 +1,9 @@
+{{ $imageRef := (.Get 0) }}
+{{ $imageAlt := (.Get 1) }}
+{{ if hasPrefix $imageRef "http" }}
+    <amp-img src="{{ $imageRef }}" alt="{{ $imageAlt }}" width="600" height="400" layout="responsive"></amp-img>
+{{ else }}
+    {{ with imageConfig (printf "content/%s" $imageRef) }}
+        <amp-img src="{{ $imageRef }}" alt="{{ $imageAlt }}" width="{{ .Width }}" height="{{ .Height }}" layout="responsive"></amp-img>
+    {{ end }}
+{{ end }}

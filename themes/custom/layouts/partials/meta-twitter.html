@@ -1,0 +1,18 @@
+{{ if .IsPage }} <!-- Credit V JEANTET -->
+    {{ if .Params.image }}
+    {{ $postImage := .Params.image }}
+    {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="{{ $imgPost.Permalink }}"/>
+    {{ else }}
+    <meta name="twitter:card" content="summary"/>
+    {{ end }}
+{{ else }}
+    <meta name="twitter:card" content="summary"/>
+    {{ with .Site.Params.mainCover }}{{ $imgCover := (resources.Get .).Resize "600x q50 Lanczos" }}
+    <meta name="twitter:image" content="{{ $imgCover.Permalink }}"/>{{ end }}
+{{ end }} <!-- Twitter Card data -->
+    <meta name="twitter:title" content="{{ .Title }}"/>
+    <meta name="twitter:description" content="{{if .IsPage}}{{ .Description | default (substr .Summary 0 160) }}{{ else }}{{ .Site.Params.description }}{{ end }}"/>
+    <meta name="twitter:url" content="{{.URL | absURL}}" />
+    <meta name="twitter:site" content="@{{ .Site.Params.twitterName }}"/>

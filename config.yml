@@ -1,0 +1,59 @@
+baseURL: /
+languageCode: en-us
+title: Viktor Adam's blog
+theme: custom
+
+params:
+  publicUrl: https://blog.viktoradam.net/
+  emailAddress: blog@viktoradam.net
+  description: Open-source adventures with containers, free hosted services and CI/CD
+  mainCover: images/cover-min.jpg
+  logoImage: images/logo-min.jpg
+  googleAnalyticsId: UA-100998190-4
+  githubName: rycus86
+  twitterName: rycus86
+  linkedinName: viktoradam
+  showSubscribe: true
+  amp: true
+
+disableKinds:
+  - taxonomyTerm
+
+taxonomies:
+  author: authors
+  tag: tags
+
+permalinks:
+  posts: '/:year/:month/:day/:slug/'
+  tags: '/tag/:slug/'
+  authors: '/author/:slug/'
+
+related:
+  threshold: 80
+  includeNewer: true
+  toLower: false
+  indices:
+    - name: tags
+      weight: 100
+    - name: date
+      weight: 10
+
+outputs:
+  page:
+    - HTML
+    - AMP
+
+enableRobotsTXT: true
+disqusShortname: viktoradam
+
+menu:
+  main:
+    - name: 'Home'
+      url:  '/'
+      weight: 100
+    - name: 'GitHub'
+      url:  'https://github.com/rycus86'
+      weight: 80
+    - name: 'Docker Hub'
+      url:  'https://hub.docker.com/u/rycus86/'
+      weight: 70

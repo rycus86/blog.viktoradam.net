@@ -1,0 +1,7 @@
+<footer class="site-footer clearfix">
+    <section class="copyright"><a href="{{.Site.BaseURL}}">{{.Site.Title}}</a> &copy; {{ now.Year }}</section>
+    <section class="poweredby">Proudly published with <a href="https://gohugo.io">Hugo</a></section>
+    {{with .Site.Params.twitterName}}
+    <section class="twitter-link">Follow me on Twitter <a href="https://twitter.com/{{.}}">@{{.}}</a></section>
+    {{end}}
+</footer>

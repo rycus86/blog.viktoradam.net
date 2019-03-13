@@ -1,0 +1,49 @@
+{{ if ne .Params.comments false}}
+{{ if .Site.DisqusShortname }}
+<section class="post-full-comments">
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "{{ .Permalink }}";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "{{ .Params.DisqusId | default .Permalink }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+// based on https://github.com/Joel-James/disqus-conditional-load
+var current_url = window.location.href;
+var disqus_div = document.getElementById( 'disqus_thread' );
+var disqus_loaded = false;
+
+var disqus_comments = function () {
+    if ( !disqus_loaded ) {
+        disqus_loaded = true;
+        var dsq = document.createElement( 'script' );
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = 'https://{{ .Site.DisqusShortname }}.disqus.com/embed.js';
+        (document.getElementsByTagName( 'head' )[0] || document.getElementsByTagName( 'body' )[0]).appendChild( dsq );
+    }
+};
+
+if ( current_url.indexOf( '#comment' ) !== -1 ) {
+    // Load directly if trying to scroll to a comment.
+    disqus_comments();
+} else if ( document.body.scrollHeight < window.innerHeight ) {
+    // If no scroll bar found, load comments.
+    disqus_comments();
+} else if ( document.getElementById( 'disqus_thread' ) !== null ) {
+    // Start loading the comments when user scroll down.
+    window.onscroll = function () {
+        if ( ( window.scrollY + window.innerHeight ) >= disqus_div.offsetTop ) {
+            disqus_comments();
+        }
+    };
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+{{ end }}{{ end }}

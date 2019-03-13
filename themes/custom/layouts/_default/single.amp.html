@@ -1,0 +1,29 @@
+{{ partial "head-amp" . }}
+<body class="amp-template">
+    {{ if .Site.Params.GoogleAnalyticsId }}
+    <amp-analytics type="googleanalytics">
+    <script type="application/json">
+    {
+      "vars": {
+        "account": "{{ .Site.Params.GoogleAnalyticsId }}"
+      },
+      "triggers": {
+        "trackPageview": {
+          "on": "visible",
+          "request": "pageview"
+        }
+      }
+    }
+    </script>
+    </amp-analytics>
+    {{ end }}
+
+    {{ partial "header-amp" . }}
+
+    <main class="content" role="main">
+        {{ partial "post-single-amp" . }}
+    </main>
+
+    {{ partial "footer-amp" . }}
+</body>
+</html>

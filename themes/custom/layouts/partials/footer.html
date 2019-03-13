@@ -1,0 +1,19 @@
+<footer class="site-footer outer">
+  <div class="site-footer-content inner">
+    <section class="copyright">
+      <a href="{{.Site.BaseURL}}">{{.Site.Title}}</a> © {{ now.Year }} <br>
+    </section>
+    <nav class="site-footer-nav">
+        <a href="{{.Site.BaseURL}}">Latest Posts</a>
+        {{with .Site.Params.githubName}}<a href="https://github.com/{{.}}" target="_blank" rel="noopener">Github</a>{{end}}
+        {{with .Site.Params.twitterName}}<a href="https://twitter.com/{{.}}" target="_blank" rel="noopener">Twitter</a>{{end}}
+        {{with .Site.Params.linkedinName}}<a href="https://www.linkedin.com/in/{{.}}" target="_blank" rel="noopener">LinkedIn</a>{{end}}
+        {{ if .Site.Params.RSSLink}}
+        <a href="{{.Site.Params.RSSLink }}" target="_blank" rel="noopener">RSS</a>
+        {{else if .Site.Params.showSubscribe}}
+        <a href="{{if .IsNode}}{{.RSSLink}}{{else}}{{"index.xml" | absURL}}{{end}}" target="_blank" rel="noopener">RSS</a>
+        {{end}}
+        <a href="https://gohugo.io" target="_blank" rel="noopener" title="Hugo v{{.Hugo.Version}}">Hugo</a>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,23 @@
+<article class="post">
+    <header class="post-header">
+        <h1 class="post-title">{{.Title}}</h1>
+        <section class="post-meta">
+            {{if .Params.authors}}{{with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0))}}
+            <p class="author">by <a href="{{.Permalink}}">{{.Title}}</a></p>
+            {{end}}{{end}}
+            <time class="post-date" datetime="{{.Date.Format "2006-01-02"}}">{{.Date.Format "2006-01-02"}}</time>
+        </section>
+    </header>
+
+    {{ if .Params.image }}
+    <figure class="post-image">
+        {{ $postImage := .Params.image }}
+        {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
+        <amp-img src="{{ $imgPost.Permalink }}" width="{{ $imgPost.Width }}" height="{{ $imgPost.Height }}" layout="responsive"></amp-img>
+    </figure>
+    {{ end }}
+
+    <section class="post-content">
+        {{ .Content }}
+    </section>
+</article>

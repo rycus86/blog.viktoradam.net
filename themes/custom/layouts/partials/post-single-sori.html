@@ -1,0 +1,59 @@
+<article class="post-full post"> 
+    <header class="post-full-header">
+        <section class="post-full-meta">
+            {{ range $index, $tag := .Params.tags }}
+            {{if gt $index 0}}<span class="meta-divider">/</span>{{end}}
+            {{with $.Site.GetPage ( printf "tags/%s" (urlize $tag))}}
+            <a href="{{.Permalink}}">{{.Title}}</a>
+            {{end}}{{end}}
+        </section>
+        <h1 class="post-full-title">{{.Title}}</h1>
+        <section class="post-full-meta">
+            <time class="post-full-meta-date" datetime="{{.Date.Format "2006-01-02"}}">{{ .Date.Format "2 January 2006" | safeHTML }}</time>
+            <span class="meta-divider">/</span>
+            <span class="post-full-reading-time">{{.ReadingTime}} min read</span>
+        </section>
+    </header>
+
+    {{ if .Params.image }}
+    {{ $postImage := .Params.image }}
+    {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
+    <figure class="post-full-image" style="background-image: url({{ $imgPost.Permalink }})"></figure>
+    {{ else }}
+    <figure class="post-full-image"></figure>
+    {{ end }}
+
+    <section class="post-full-content">
+        <div class="kg-card-markdown">
+        {{ .Content }}    
+        </div>
+    </section>
+
+    {{if .Params.authors}}{{with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0))}}
+    <footer class="post-full-footer">
+      <section class="author-card">
+        {{ $authorImage := .Params.image }}
+        {{ $imgAuthor := (resources.Get $authorImage).Resize "60x60 q75 Lanczos" }}
+        <img class="author-profile-image" src="{{ $imgAuthor.Permalink }}" alt="{{.Title}}" />
+        <section class="author-card-content">
+            <h4 class="author-card-name"><a href="{{.Permalink}}">{{.Title}}</a></h4>
+            <p>{{.Params.bio}}</p>
+        </section>
+      </section>
+      <div class="post-full-footer-right">
+          <a class="author-card-button" href="{{.Permalink}}">Read More</a>
+      </div>
+    </footer>
+    {{end}}{{end}}
+
+    <section class="post-full-contact-info">
+        <em>
+            If you have any questions, feedback or would otherwise like to get in touch,
+            email me at <a href="mailto:{{.Site.Params.EmailAddress}}">{{.Site.Params.EmailAddress}}</a>,
+            send me a message on Twitter <a href="https://twitter.com/{{.Site.Params.TwitterName}}">@{{.Site.Params.TwitterName}}</a>
+            or leave a comment below.
+        </em>
+    </section>
+
+    {{ partial "disqus" . }}
+</article>

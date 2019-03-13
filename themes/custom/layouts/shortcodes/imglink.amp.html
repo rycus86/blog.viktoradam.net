@@ -1,0 +1,16 @@
+<a href="{{ .Get 0 }}">
+{{ $imageRef := (.Get 1) }}
+{{ $imageAlt := (.Get 2) }}
+{{ if hasPrefix $imageRef "http" }}
+    <!-- hacks until I figure out something better for getting the dimensions of remote images -->
+    {{ if and (in $imageRef "#default") (in .Page.Permalink "continuous-integration-with-travis-ci") }}
+    <amp-img src="{{ $imageRef }}" alt="{{ $imageAlt }}" width="100" height="20" layout="fixed"></amp-img>
+    {{ else }}
+    <amp-img src="{{ $imageRef }}" alt="{{ $imageAlt }}" width="600" height="400" layout="responsive"></amp-img>
+    {{ end }}
+{{ else }}
+    {{ with imageConfig (printf "content/%s" $imageRef) }}
+        <amp-img src="{{ $imageRef }}" alt="{{ $imageAlt }}" width="{{ .Width }}" height="{{ .Height }}" layout="responsive"></amp-img>
+    {{ end }}
+{{ end }}
+</a>

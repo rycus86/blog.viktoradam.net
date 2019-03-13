@@ -1,0 +1,34 @@
+{{ partial "head" . }}
+
+<body class="post-template">
+  <div class="site-wrapper"> 
+
+{{ partial "header-sori" . }}
+
+<main id="site-main" class="site-main outer" role="main">
+  <div class="inner">
+    {{ partial "post-single-sori" . }}
+  </div>
+</main>
+
+<aside class="read-next outer">
+  <div class="inner">
+    <div class="read-next-feed">      
+      {{ partial "readnext-random-sori" . }}
+      {{with .NextInSection}}
+      {{ partial "readnext-article-sori" . }}
+      {{end}}
+      {{with .PrevInSection}}
+      {{ partial "readnext-article-sori" . }}
+      {{end}}
+    </div>
+  </div>
+</aside>
+
+{{ partial "header-floating-sori" . }}
+
+{{ partial "footer" . }}
+</div>
+{{ partial "js" . }}
+{{ partial "js-sori" . }}
+</body></html>

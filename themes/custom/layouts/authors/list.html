@@ -1,0 +1,21 @@
+{{ partial "head" . }}
+
+<body class="author-template"><div class="site-wrapper">
+  {{ partial "header-sori-author" . }}
+
+<main id="site-main" class="site-main outer" role="main">
+  <div class="inner">
+    <div class="post-feed">
+      {{ partial "post-list" . }}
+    </div>
+
+    <nav class="pagination" role="navigation">
+      <div class="site-pagination">
+        {{ template "_internal/pagination.html" . }}
+      </div>
+    </nav>
+  </div>
+</main>
+
+{{ partial "footer" . }}
+</div>{{ partial "js" . }}</body></html>

@@ -1,0 +1,120 @@
+{{ $logoImage := .Site.Params.logoImage }}
+{{ $imgLogo := (resources.Get $logoImage).Resize "60x60 q90 Lanczos" }}
+
+{{ if .IsPage }}
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "{{$.Site.Title}}",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ $imgLogo.Permalink }}",
+            "width": 60,
+            "height": 60
+        }
+    },
+    {{if .Params.authors}}{{with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0))}}
+        {{ $authorImage := .Params.image }}
+        {{ $imgAuthor := (resources.Get $authorImage).Resize "200x200 q75 Lanczos" }}
+    "author": {
+        "@type": "Person",
+        "name": "{{.Title}}",
+        "image": {
+            "@type": "ImageObject",
+            "url": "{{ $imgAuthor.Permalink }}",
+            "width": {{ $imgAuthor.Width }},
+            "height": {{ $imgAuthor.Height }}
+        },
+        "url": "{{.Permalink}}",
+        "sameAs": [{{/* TODO should implement this properly */}}
+            "https://github.com/{{$.Site.Params.GithubName}}",
+            "https://twitter.com/{{$.Site.Params.TwitterName}}"
+        ]
+    },
+    {{end}}{{end}}
+    "headline": "{{ trim (.Params.metaTitle | default .Title | plainify | safeHTML) "\n" }}",
+    "url": "{{.Permalink}}",
+    "datePublished": "{{.Date.Format "2006-01-02T15:04:05.000Z"}}",
+    "dateModified": "{{.Date.Format "2006-01-02T15:04:05.000Z"}}",
+    "image": {
+        "@type": "ImageObject",{{/* TODO could check if there's an image*/}}
+        {{ $postImage := .Params.image }}
+        {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
+        "url": "{{ $imgPost.Permalink }}",
+        "width": {{ $imgPost.Width }},
+        "height": {{ $imgPost.Height }}
+    },
+    "keywords": "{{ range $index, $tag := .Params.tags }}{{ if gt $index 0}}, {{end}}{{$tag}}{{end}}",
+    "description": "{{ trim (.Params.metaDescription | default .Summary | plainify | safeHTML) "\n" }}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ $.Site.BaseURL }}"
+    }
+}
+    </script>
+{{ else if eq .Kind "taxonomy" }}
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+  {{ if eq .Type "authors" }}
+    "@type": "Person",
+    "sameAs": [{{/* TODO should implement this properly */}}
+        "https://github.com/{{$.Site.Params.GithubName}}",
+        "https://twitter.com/{{$.Site.Params.TwitterName}}"
+    ],
+  {{ else }}
+    "@type": "Series",
+    "publisher": {
+        "@type": "Organization", {{/* TODO Google says there's no publisher for Series */}}
+        "name": "{{$.Site.Title}}",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ $imgLogo.Permalink }}",
+            "width": 60,
+            "height": 60
+        }
+    },
+  {{ end }}
+    "url": "{{.Permalink}}",
+    "name": "{{.Title}}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ $.Site.BaseURL }}"
+    }
+}
+    </script>
+{{ else }}
+    {{ $mainCover := .Site.Params.mainCover }}
+    {{ $imgCover := (resources.Get $mainCover).Resize "600x q50 Lanczos" }}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "publisher": {
+                "@type": "Organization",
+                "name": "{{.Site.Title}}",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ $imgLogo.Permalink }}",
+                    "width": 60,
+                    "height": 60
+                }
+            },
+            "url": "{{.Site.Params.PublicURL}}",
+            "image": {
+                "@type": "ImageObject",
+                "url": "{{ $imgCover.Permalink }}",
+                "width": {{ $imgCover.Width }},
+                "height": {{ $imgCover.Height }}
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "{{.Site.Params.PublicURL}}"
+            },
+            "description": "{{ .Site.Params.metadescription | default .Site.Params.description }}"
+        }
+    </script>
+{{ end }}

@@ -1,0 +1,19 @@
+{{ partial "head" . }}
+
+<body class="home-template"><div class="site-wrapper"> 
+{{ partial "header-home" . }}
+
+<main id="site-main" class="site-main outer" role="main">
+  <div class="inner">
+
+  <section class="error-message">
+    <h1 class="error-code">404</h1>
+    <p class="error-description">{{ .Site.Params.pageNotFoundTitle }}</p>
+    <a class="error-link" href="{{"/"|absURL}}">Go to the front page →</a>
+  </section>
+
+  </div>
+</main>
+
+{{ partial "footer" . }}
+</div>{{ partial "js" . }}</body></html>
