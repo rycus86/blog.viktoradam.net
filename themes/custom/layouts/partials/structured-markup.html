@@ -103,7 +103,7 @@
                     "height": 60
                 }
             },
-            "url": "{{.Site.Params.PublicURL}}",
+            "url": "{{.Site.BaseURL}}",
             "image": {
                 "@type": "ImageObject",
                 "url": "{{ $imgCover.Permalink }}",
@@ -112,7 +112,7 @@
             },
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": "{{.Site.Params.PublicURL}}"
+                "@id": "{{.Site.Params.BaseURL}}"
             },
             "description": "{{ .Site.Params.metadescription | default .Site.Params.description }}"
         }

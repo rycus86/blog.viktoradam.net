@@ -1,10 +1,9 @@
-baseURL: /
+baseURL: https://blog.viktoradam.net/
 languageCode: en-us
 title: Viktor Adam's blog
 theme: custom
 
 params:
-  publicUrl: https://blog.viktoradam.net/
   emailAddress: blog@viktoradam.net
   description: Open-source adventures with containers, free hosted services and CI/CD
   mainCover: images/cover-min.jpg
