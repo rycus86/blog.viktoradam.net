@@ -4,19 +4,28 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>{{ if .IsHome }}{{ .Title }}{{ else }}{{ .Title }} &middot; {{ .Site.Title }}{{ end }}</title>
+    <title>{{ if .IsHome }}{{ .Title }}{{ else }}{{ trim (.Params.MetaTitle | default .Title) "\n" }} &middot; {{ .Site.Title }}{{ end }}</title>
     
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
+    {{ $.Scratch.Set "alt-title" $.Site.Title }}
+    {{ if .IsPage }}{{ $.Scratch.Set "alt-title" (.Params.MetaTitle | default .Title) }}{{ end }}
     {{ range .AlternativeOutputFormats -}}
+        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink (trim ($.Scratch.Get "alt-title") "\n") | safeHTML }}
+    {{ end -}}
+
+    {{ with $.Site.GetPage "/" -}}
+    {{ with .OutputFormats.Get "rss" -}}
         {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
+    {{ end -}}
     
-    {{ if .IsPage }}<meta name="description" content="{{ .Description | default (substr .Summary 0 160) }}" /> {{ else }}
-    <meta name="description" content="{{ .Site.Params.metadescription | default .Site.Params.description }}" /> {{ end }}
+    {{ if .IsPage }}<meta name="description" content="{{ trim ((.Params.MetaDescription | default .Description) | default (substr .Summary 0 160) | plainify) "\n" }}" /> {{ else }}
+    <meta name="description" content="{{ trim (.Site.Params.metadescription | default .Site.Params.description | plainify) "\n" }}" /> {{ end }}
     
     {{ partial "meta-twitter" . }}
     {{ partial "meta-facebook" . }}
