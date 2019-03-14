@@ -43,6 +43,7 @@
     {{ $cssGlobal := resources.Get "css/global.css" }}
     {{ $cssSite := resources.Get "css/site.css" }}
     {{ $css := slice $cssGlobal $cssSite | resources.Concat "css/bundle.css" }}
+    {{ $secureCSS := $css | resources.Minify | resources.Fingerprint }}
 
-    <link rel="stylesheet" type="text/css" href="{{ ( $css | resources.Minify | resources.Fingerprint ).Permalink }}" />
+    <link rel="stylesheet" type="text/css" href="{{ $secureCSS.Permalink }}"  integrity="{{ $secureCSS.Data.Integrity }}" />
 </head>

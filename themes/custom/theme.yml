@@ -1,6 +1,6 @@
-name: 'TODO Custom Theme'
+name: 'Custom Hugo theme'
 license: 'MIT'
-description: 'TODO custom theme'
+description: 'Ported Ghost Casper Theme for blog.viktoradam.net'
 tags:
   - blog
 features:
