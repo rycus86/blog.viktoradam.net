@@ -1,6 +1,9 @@
 # Redirect the old .../amp/ links to /amp/...
 /:year/:month/:date/:slug/amp/      /amp/:year/:month/:date/:slug/
 
+# Changed tag URL
+/tag/ci-cd/     /tag/ci/cd/
+
 # Sitemap for posts
 /sitemap-posts.xml      /sitemap.xml
 

@@ -5,7 +5,7 @@ slug: continuous-integration-with-travis-ci
 disqusId: ghost-5a3950237db9250001a68723
 image: /images/posts/2017/12/ci-cd-cover-min-2.jpg
 tags:
-  - ci-cd
+  - CI/CD
   - Open-Source
   - Travis
   - Git

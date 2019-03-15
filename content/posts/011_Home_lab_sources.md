@@ -6,7 +6,7 @@ disqusId: ghost-5aa98c4a650fff0001d1809f
 image: /images/posts/2018/03/home-stack-header-min.jpg
 tags:
   - Home Lab
-  - ci-cd
+  - CI/CD
   - Docker
   - Swarm
 authors:
