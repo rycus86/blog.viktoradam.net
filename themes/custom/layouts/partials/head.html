@@ -24,6 +24,15 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="canonical" href="{{ .Permalink }}" />
 
+    {{ if not .IsPage }}
+        {{ if .Paginator.HasPrev }}
+            <link rel="prev" href="{{ .Paginator.Prev.URL | absURL }}" />
+        {{ end }}
+        {{ if .Paginator.HasNext }}
+            <link rel="next" href="{{ .Paginator.Next.URL | absURL }}" />
+        {{ end }}
+    {{ end }}
+
     {{ $.Scratch.Set "alt-title" $.Site.Title }}
     {{ if .IsPage }}{{ $.Scratch.Set "alt-title" (.Params.MetaTitle | default .Title) }}{{ end }}
     {{ range .AlternativeOutputFormats -}}

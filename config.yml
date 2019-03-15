@@ -21,6 +21,11 @@ disqusShortname: viktoradam
 disableKinds:
   - taxonomyTerm
 
+sitemap:
+  changefreq: weekly
+  filename: sitemap.xml
+  priority: 0.8
+
 taxonomies:
   author: authors
   tag: tags
