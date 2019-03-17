@@ -4,7 +4,7 @@
       <div class="site-nav-left">{{ if .Site.Params.logoImage }}
         {{ $logoImage := .Site.Params.logoImage }}
         {{ $imgLogo := (resources.Get $logoImage).Resize "25x25 q90 Lanczos" }}
-        <a class="site-nav-logo" href="#"><img src="{{ $imgLogo.Permalink }}" alt="{{ .Site.Title }}" /></a>{{end}}
+        <a class="site-nav-logo" href="{{.Site.BaseURL}}"><img src="{{ $imgLogo.Permalink }}" alt="{{ .Site.Title }}" /></a>{{end}}
 
         <ul class="nav" role="menu">
         {{ $currentNode := . }}
