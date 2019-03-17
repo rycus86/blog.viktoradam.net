@@ -32,6 +32,12 @@
                         {{ partial "svg-linkedin" . }}
                     </a>
                     {{end}}
+
+                    {{with .Site.Params.fbName}}
+                    <a class="social-link social-link-fb" href="https://www.facebook.com/{{.}}" target="_blank" rel="noopener">
+                        {{ partial "svg-facebook" . }}
+                    </a>
+                    {{end}}
                 </div>
                 {{ if .Site.Params.RSSLink}}
                 <a class="rss-button" href="{{.Site.Params.RSSLink }}" target="_blank" rel="noopener">

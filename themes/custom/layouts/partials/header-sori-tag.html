@@ -18,11 +18,11 @@
 
       <div class="site-nav-right">
         <div class="social-links">
-            {{ if .Site.Params.fbName }}<a class="social-link social-link-fb" href="https://www.facebook.com/{{ .Site.Params.fbName }}" target="_blank" rel="noopener">{{ partial "svg-facebook" . }}</a>{{end}}
-            {{ if .Site.Params.twitterName }}<a class="social-link social-link-tw" href="https://twitter.com/{{ .Site.Params.twitterName }}" target="_blank" rel="noopener">{{ partial "svg-twitter" . }}</a>{{end}}
             {{ if .Site.Params.githubName }}<a class="social-link" href="https://github.com/{{ .Site.Params.githubName }}" target="_blank" rel="noopener">{{ partial "svg-github" . }}</a>{{end}}
+            {{ if .Site.Params.twitterName }}<a class="social-link social-link-tw" href="https://twitter.com/{{ .Site.Params.twitterName }}" target="_blank" rel="noopener">{{ partial "svg-twitter" . }}</a>{{end}}
             {{ if .Site.Params.linkedinName }}<a class="social-link" href="https://www.linkedin.com/in/{{ .Site.Params.linkedinName }}" target="_blank" rel="noopener">{{ partial "svg-linkedin" . }}</a>{{end}}
-        </div>  
+            {{ if .Site.Params.fbName }}<a class="social-link social-link-fb" href="https://www.facebook.com/{{ .Site.Params.fbName }}" target="_blank" rel="noopener">{{ partial "svg-facebook" . }}</a>{{end}}
+        </div>
         {{ if .Site.Params.RSSLink}}
         <a class="rss-button" href="{{.Site.Params.RSSLink }}" target="_blank" rel="noopener">
             {{ partial "svg-rss" . }}

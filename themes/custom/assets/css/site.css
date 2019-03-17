@@ -1649,9 +1649,10 @@ Usage (In Ghost editor):
 
 .pagination {
     display: flex;
-    padding-left: 0;
+    padding: 0;
     list-style: none;
-    border-radius: 0.25rem;
+    border-radius: 5px;
+    box-shadow: rgba(39,44,49,0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
 }
 
 .pagination li {
