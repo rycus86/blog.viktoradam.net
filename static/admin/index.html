@@ -1,12 +1,33 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Content Manager</title>
+    <style>
+        div[class$="-AppMainContainer"] {
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+
+        div[class$="-EditorContainer"] {
+            min-width: 0 !important;
+        }
+
+        @media (max-width: 800px) {
+            aside[class*="-SidebarContainer-"] {
+                position: relative;
+                margin-bottom: 16px;
+            }
+
+            main[class$="-CollectionMain"] {
+                padding-left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Include the script that builds the page and powers Netlify CMS -->
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+<!-- Include the script that builds the page and powers Netlify CMS -->
+<script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </body>
 </html>

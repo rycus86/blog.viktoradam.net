@@ -22,7 +22,7 @@ collections:
       - {label: "Slug", name: "slug", widget: "string"}
       - {label: "Cover Image", name: "image", widget: "image", required: false}  # TODO true
       - {label: "Tags", name: "tags", widget: "list"}
-      - {label: "Authors", name: "tags", widget: "list", default: ["viktor"]}
+      - {label: "Authors", name: "authors", widget: "list", default: ["viktor"]}
       - {label: "SEO Title", name: "metaTitle", widget: "string", required: false}
       - {label: "SEO Description", name: "metaDescription", widget: "string", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
