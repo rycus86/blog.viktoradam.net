@@ -8,4 +8,4 @@ public/
 resources/
 
 # migration scripts
-*.py
+migration/

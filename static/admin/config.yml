@@ -1,0 +1,28 @@
+backend:
+  name: github
+  repo: rycus86/blog.viktoradam.net
+  branch: master
+#  name: test-repo
+
+publish_mode: editorial_workflow
+
+media_folder: "assets/images/posts"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: "slug"
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "posts"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "Cover Image", name: "image", widget: "image", required: false}  # TODO true
+      - {label: "Tags", name: "tags", widget: "list"}
+      - {label: "Authors", name: "tags", widget: "list", default: ["viktor"]}
+      - {label: "SEO Title", name: "metaTitle", widget: "string", required: false}
+      - {label: "SEO Description", name: "metaDescription", widget: "string", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
