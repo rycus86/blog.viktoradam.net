@@ -108,7 +108,7 @@ Pretty neat, but you can do so much better!
 
 There are a couple of good free for open-source services for code quality checks and visualization. I use [Coveralls](https://coveralls.io/) and [Code Climate](https://codeclimate.com/) - they're both fantastic.
 
-{{% img "/images/posts/2017/12/coveralls-min.png" "Coveralls" %}}
+![Coveralls](/images/posts/2017/12/coveralls-min.png)
 
 You can sign up for both of them using your GitHub account. Coveralls gives you code coverage metrics and nice graphs for them. You can install their module using `pip` and make it part of your build to submit the report to them.
 
@@ -133,7 +133,7 @@ It doesn't need any special settings, the report will be linked to the GitHub pr
 
 Code Climate also does code coverage but it also includes static code analysis. You can get details about issues like code duplication, too much [cyclomatic complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity), too long functions, etc.
 
-{{% img "/images/posts/2017/12/codeclimate-min.png" "Code Climate" %}}
+![Code Climate](/images/posts/2017/12/codeclimate-min.png)
 
 Getting their reporter is a bit more work but it's not difficult. You need to grab a binary for it, make it executable and have the `CC_TEST_REPORTER_ID` environment variable ready with the ID you can find in the settings section in Code Climate.
 
@@ -160,7 +160,7 @@ env:
 
 Code Climate has a handy [Chrome extension](https://codeclimate.com/browser-extension) you can install that transforms your GitHub repository to allow displaying code issues and lines missed while testing. It's super convenient to be able to see this information on the repo without having to go to another site.
 
-{{% img "/images/posts/2017/12/codeclimate-chrome-extension-min.png" "codeclimate-chrome-extension-min" %}}
+![codeclimate-chrome-extension-min](/images/posts/2017/12/codeclimate-chrome-extension-min.png)
 
 Finally, I'd like to mention [flake8](http://flake8.pycqa.org) which is a modular source code checker I've come across in the [docker-py](https://github.com/docker/docker-py) project I've contributed to. It can save you from the embarrassment of committing code that doesn't adhere to the common coding style used by the project. The best way to ensure this happens is to run it as part of the git pre-commit hook.
 
@@ -304,10 +304,10 @@ After your hard work on your open-source projects and *countless* rebuilds on Tr
 
 | Service      | Badge |
 |--------------|-------|
-| Travis       | {{% imglink "https://travis-ci.org/rycus86/prometheus_flask_exporter" "https://img.shields.io/travis/rycus86/prometheus_flask_exporter.svg#default" "Travis" %}} |
-| Coveralls    | {{% imglink "https://coveralls.io/github/rycus86/prometheus_flask_exporter?branch=master" "https://coveralls.io/repos/github/rycus86/prometheus_flask_exporter/badge.svg?branch=master#default" "Coverage Status" %}} |
-| Code Climate | {{% imglink "https://codeclimate.com/github/rycus86/prometheus_flask_exporter" "https://codeclimate.com/github/rycus86/prometheus_flask_exporter/badges/gpa.svg#default" "Code Climate" %}} |
-| PyPI         | {{% imglink "https://pypi.python.org/pypi/prometheus-flask-exporter" "https://img.shields.io/pypi/v/prometheus-flask-exporter.svg#default" "PyPI" %}} |
-| PyPI         | {{% imglink "https://pypi.python.org/pypi/prometheus-flask-exporter" "https://img.shields.io/pypi/pyversions/prometheus-flask-exporter.svg#default" "PyPI" %}} |
+| Travis       | [![Travis](https://img.shields.io/travis/rycus86/prometheus_flask_exporter.svg#default)](https://travis-ci.org/rycus86/prometheus_flask_exporter) |
+| Coveralls    | [![Coverage Status](https://coveralls.io/repos/github/rycus86/prometheus_flask_exporter/badge.svg?branch=master#default)](https://coveralls.io/github/rycus86/prometheus_flask_exporter?branch=master) |
+| Code Climate | [![Code Climate](https://codeclimate.com/github/rycus86/prometheus_flask_exporter/badges/gpa.svg#default)](https://codeclimate.com/github/rycus86/prometheus_flask_exporter) |
+| PyPI         | [![PyPI](https://img.shields.io/pypi/v/prometheus-flask-exporter.svg#default)](https://pypi.python.org/pypi/prometheus-flask-exporter) |
+| PyPI         | [![PyPI](https://img.shields.io/pypi/pyversions/prometheus-flask-exporter.svg#default)](https://pypi.python.org/pypi/prometheus-flask-exporter) |
 
 To find more types of badges related to open-source and free services, check out the amazing [Shields.io](https://shields.io/)!

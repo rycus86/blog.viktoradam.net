@@ -63,7 +63,7 @@ $ curl -s -v -H 'Host: www.viktoradam.net' https://d1234abcd.cloudfront.net/ > /
 
 Once it started working, I was ready to change the DNS record in Cloudflare. While self-hosting this endpoint, it had an `A` record, with the IP address pointing to my origin server. With this CloudFront setup, you'll need a `CNAME` record, where the value is the domain name AWS gives you in the `Target Domain Name` field of the API custom domain.
 
-{{% img "/images/posts/2018/08/apigw_custom_domain-min.png" "apigw_custom_domain-min" %}}
+![apigw_custom_domain-min](/images/posts/2018/08/apigw_custom_domain-min.png)
 
 After a few seconds, the domain was now pointing to AWS, and after a quick Cloudflare cache purge, it was ready for testing.
 
@@ -593,11 +593,11 @@ $ cat stack.yml |           \
 
 This came out 784 MB, which should still be all right, even if barely. I changed the Swarm configs and secrets to simpler to manage volume mounts, then I went ahead to push the change, and redeployed the stack on the EC2 host. Everything came up nicely, so I switched the domain pointing to [Grafana](https://grafana.com/) to the EC2 public IP, added the [Prometheus](https://prometheus.io/) data source and the dashboards I saved from the local instance.
 
-{{% img "/images/posts/2018/08/ec2_free_memory-min.png" "ec2_free_memory-min" %}}
+![ec2_free_memory-min](/images/posts/2018/08/ec2_free_memory-min.png)
 
 I'm also running a [Node exporter](https://github.com/prometheus/node_exporter) there for host-level metrics, like disk space and such, plus my [Release Watcher](https://github.com/rycus86/release-watcher) and the [GitHub exporter](https://github.com/rycus86/github-prometheus-exporter). I realized then, that I forgot to enable TCP connections to the Docker daemon, so Prometheus couldn't scrape it directly, I needed a work-around. I already have an [image](https://github.com/rycus86/docker-socat) wrapping [socat](https://linux.die.net/man/1/socat) I could just add to the stack, pointed Prometheus to its target port, and now I had Docker engine metrics.
 
-{{% img "/images/posts/2018/08/ec2_containers-min.png" "ec2_containers-min" %}}
+![ec2_containers-min](/images/posts/2018/08/ec2_containers-min.png)
 
 The only thing that went wrong here was that I forgot to get Cloudflare to bypass the cache for Grafana responses, which made it a bit difficult to log in, due to a cached redirect. Once I added a [page rule](https://support.cloudflare.com/hc/en-us/articles/218411427-Page-Rules-Tutorial#cache), everything was working as expected.
 

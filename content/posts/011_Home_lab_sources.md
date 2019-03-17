@@ -29,7 +29,7 @@ Let's have a look at the stacks to see their services and what they do!
 
 ### Web stack
 
-{{% img "https://github.com/rycus86/home-stack-web/raw/master/stack.png" "Web stack" %}}
+![Web stack](https://github.com/rycus86/home-stack-web/raw/master/stack.png)
 
 The [home-stack-web stack](https://github.com/rycus86/home-stack-web) is the main entrypoint from external networks. A service, running the [Nginx](https://www.nginx.com/) [image](https://hub.docker.com/r/_/nginx/) is listening on port 443 for HTTPS connections, and all external HTTPS traffic will go through its instances. This then connects to the other services on an overlay network, called `web`, usually on HTTP.
 
@@ -50,7 +50,7 @@ All other services in the `web` stack accept HTTP connections, as described abov
 
 ### Monitoring
 
-{{% img "https://github.com/rycus86/home-stack-monitoring/raw/master/stack.png" "Monitoring stack" %}}
+![Monitoring stack](https://github.com/rycus86/home-stack-monitoring/raw/master/stack.png)
 
 At the heart of this stack, there is a [Prometheus](https://prometheus.io/) instance running, that scrapes other services, and collects their metrics. Its configuration is kept up-to-date by another set of PyGen services, the configuration file being stored on a shared volume again. The other services only need to be on the `monitoring` network, and define the `prometheus-job` and `prometheus-port` service labels to get automatically registered. I have another [blog post](https://blog.viktoradam.net/2018/02/06/home-lab-part5-monitoring-madness/#monitoring) describing this in more detail.
 
@@ -67,7 +67,7 @@ The stack also includes a [Portainer](https://portainer.io/) instance to have a 
 
 ### Logging
 
-{{% img "https://github.com/rycus86/home-stack-logging/raw/master/stack.png" "Logging stack" %}}
+![Logging stack](https://github.com/rycus86/home-stack-logging/raw/master/stack.png)
 
 As described in a [previous post](https://blog.viktoradam.net/2018/02/06/home-lab-part5-monitoring-madness/#logging), this stack contains an [Elasticsearch](https://www.elastic.co/products/elasticsearch) instance for log storage and querying, [Kibana](https://www.elastic.co/products/kibana) for visualization, and [Fluentd](https://www.fluentd.org/) for log collection and forwarding.
 
@@ -84,7 +84,7 @@ All the Elasticsearch and Fluentd configuration files are kept in files [in the 
 
 ### Webhooks
 
-{{% img "https://github.com/rycus86/home-stack-webhooks/raw/master/stack.png" "Webhook stack" %}}
+![Webhook stack](https://github.com/rycus86/home-stack-webhooks/raw/master/stack.png)
 
 All the updates to all my Swarm stacks are managed by webhooks, processed using my [webhook Proxy](https://github.com/rycus86/webhook-proxy) app. You can find some information on how in a [previous post](https://blog.viktoradam.net/2018/01/13/home-lab-part3-swarm-cluster/#updatingstacks), though it's fairly straightforward.
 
@@ -108,11 +108,11 @@ The last step will create all the Swarm secrets and configs, and updates (or cre
 
 ### Other stacks
 
-{{% img "https://github.com/rycus86/home-stack-docker/raw/master/stack.png" "Docker stack" %}}
+![Docker stack](https://github.com/rycus86/home-stack-docker/raw/master/stack.png)
 
 I have a few other, smaller stacks in my home lab. One of them houses a private [Docker Registry](https://github.com/docker/distribution), where I keep my images I don't necessarily want in Docker Hub. This service is somewhat special from a routing perspective. It does it's own basic authentication, and it accepts HTTPS connections only on the internal overlay network, coming from Nginx. This minor deviation is handled by the Nginx template, using a boolean flag from the `routing-on-https` service label.
 
-{{% img "https://github.com/rycus86/home-stack-dns/raw/master/stack.png" "DNS stack" %}}
+![DNS stack](https://github.com/rycus86/home-stack-dns/raw/master/stack.png)
 
 There is also another small stack, looking after my DNS and SSL maintenance I wrote about in a [previous post](https://blog.viktoradam.net/2018/02/17/auto-dns-and-ssl-management/). The service for the [domain-automation](https://github.com/rycus86/domain-automation) app uses quite a few Swarm secrets, mainly for access keys to various external services, like [Slack](https://slack.com/) for example. This stack is one where the service defined in it is not connected to the `web` network, as the application doesn't provide an HTTP endpoint *(externally)*. It is connected though to the `monitoring` network, so Prometheus is able scrape its metrics, like it does with services in any other stacks.
 

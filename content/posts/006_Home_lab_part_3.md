@@ -189,7 +189,7 @@ dk0d1lcv98l5        demo_traefik        replicated          1/1                 
 
 All containers started by the tasks will be attached to this network where they can talk to each other using service names as hostnames, even if they are running on different physical hosts, *pretty cool!* [Overlay networks](https://docs.docker.com/engine/swarm/networking/) are neat, check out the documentation on the link if you're interested to know more about them. The containers also get their own unique IP addresses on this network and as they start up, Traefik will add routing to them using these addresses. You can see this on a nice dashboard at the `http://localhost:8080/dashboard/` URL.
 
-{{% img "/images/posts/2018/01/traefik-dashboard-min.png" "Traefik Dashboard" %}}
+![Traefik Dashboard](/images/posts/2018/01/traefik-dashboard-min.png)
 
 We can also interact with services in the stack using simple `docker` commands, like these:
 

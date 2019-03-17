@@ -39,7 +39,7 @@ It's a lot to cover, so let's get started!
 
 ## Sidecar
 
-{{% img "https://raw.githubusercontent.com/rycus86/podlike/master/examples/sidecar/components.png" "Sidecar example components" %}}
+![Sidecar example components](https://raw.githubusercontent.com/rycus86/podlike/master/examples/sidecar/components.png)
 
 The first example takes an existing [Flask](http://flask.pocoo.org/) application, that is running behind [demo.viktoradam.net](https://demo.viktoradam.net), and adds caching and *serve-stale-on-error* functionality using an [Nginx](https://www.nginx.com/) reverse proxy in front of it. The application itself doesn't need to support these at all, no code changes are required, and adding retry logic, circuit breaking, etc. would be just as easy.
 
@@ -51,7 +51,7 @@ An alternative to this on Swarm could be simply placing the application and the 
 
 ## Log collector
 
-{{% img "https://raw.githubusercontent.com/rycus86/podlike/master/examples/logging/components.png" "Logging example components" %}}
+![Logging example components](https://raw.githubusercontent.com/rycus86/podlike/master/examples/logging/components.png)
 
 Let's assume for this example, that we have an existing application with it's own well-tested way of writing logs, and we're not quite ready to give up on it. By sharing a volume with the application and with something that picks up those logs, we don't need to. The app can continue whatever it was doing so far, and an external service can take care of this.
 
@@ -67,7 +67,7 @@ An alternative here could be running a log forwarder agent on each Swarm node, t
 
 ## Sending UNIX signals
 
-{{% img "https://raw.githubusercontent.com/rycus86/podlike/master/examples/signal/components.png" "Signal example components" %}}
+![Signal example components](https://raw.githubusercontent.com/rycus86/podlike/master/examples/signal/components.png)
 
 Some applications respond to certain triggers coming from UNIX signals. It is quite common to get the app to reload its configuration when it receives a `SIGHUP` signal, *Nginx* and [Prometheus](https://prometheus.io/) both do this for example. The example is demonstrating a similar, but much simpler implementation.
 
@@ -79,7 +79,7 @@ Replicating this with two Docker containers on the same host is doable with `doc
 
 ## Shared volumes
 
-{{% img "https://raw.githubusercontent.com/rycus86/podlike/master/examples/volume/components.png" "Shared volume components" %}}
+![Shared volume components](https://raw.githubusercontent.com/rycus86/podlike/master/examples/volume/components.png)
 
 Building on the previous two examples, the next one demonstrates how a simple application could control another one by changing its configuration and triggering a reload on it. For example, we could implement a basic *CD pipeline* that would fetch a web server's configuration from *Git*, and get it activated by sending a UNIX signal to its process.
 
@@ -93,7 +93,7 @@ As an alternative, you could use a web server or reverse proxy here, that can dy
 
 In this example, we take a Java application that we've grown to love in whatever state it's in, and wouldn't change it for anything. It writes some very important reports to disk, and exports a JMX bean that can tell us if it's made any progress in the last 5 seconds. Now we decide to run this app on our existing Swarm cluster, and we want to hook it up to our HTTP ping based liveness checking infrastructure. We're going to take advantage of the shared PID and network namespaces, plus a shared volume to set this up as a unit.
 
-{{% img "https://raw.githubusercontent.com/rycus86/podlike/master/examples/healthz/components.png" "Health-check example components" %}}
+![Health-check example components](https://raw.githubusercontent.com/rycus86/podlike/master/examples/healthz/components.png)
 
 The HTTP *healthz* endpoint is going to be exposed by [Goss](https://github.com/aelsabbahy/goss), a pretty nice server validation tool, that has a [YAML configuration](https://github.com/rycus86/podlike/blob/master/examples/healthz/goss/goss/goss.yaml) describing the set of tests to execute. If all of them pass, the status is healthy, otherwise it's failing. It checks that the `java` process is running, the report file exists, and that it's been last written no longer than 1 minute ago. It also checks that the Prometheus [JMX exporter](https://github.com/prometheus/jmx_exporter) is running, available, and that its metrics indicate the Java application is also reporting itself as healthy.
 
@@ -109,7 +109,7 @@ First up, it's an example for a *DYI* service mesh that helps us break up our mo
 
 Each Python application is going to be coupled with a [Consul](https://www.consul.io/) agent for service discovery, and a [Traefik](https://traefik.io/) reverse proxy that does the routing to and between them. The stack contains another *Traefik* instance acting as the frontend router that accepts external requests from users, a *Consul* server the agents can join to, and an [OpenTracing](http://opentracing.io/) compatible [Zipkin](https://zipkin.io/) server that records the distributed traces of the HTTP communication. A key point to make here is that the apps are not aware of the number of instances and the addresses of the other services they talk to, they don't need to be, instead they simply talk to their local proxy that knows how to route requests to the appropriate application.
 
-{{% img "https://raw.githubusercontent.com/rycus86/podlike/master/examples/service-mesh/components.png" "Service mesh components" %}}
+![Service mesh components](https://raw.githubusercontent.com/rycus86/podlike/master/examples/service-mesh/components.png)
 
 For each application, their local *router* is going to accept the incoming requests, then it passes it to the app on `localhost`, so no additional network traffic here. When the app wants to talk to another one, it will make a request to `http://localhost/<target_app>/uri`, and its *router* is going to forward it to one of the appropriate instances, again going through their reverse proxies. The *Traefik* instances know everyone's addresses they need to from the local *Consul* agent, which registers the address of the *"pod"* it's running in with the central server. It also does some basic [health-checks](https://www.consul.io/docs/agent/checks.html), so unhealthy instances won't be routed to. Every *Traefik* instance is configured to record and submit tracing information to the central *Zipkin* instance, ad you can look at the distributed traces on port `9411` on any of the Swarm nodes' addresses. Another important thing to note, that we haven't added support for this in the applications themselves, they just deal with their very important and complex business logic. The only change to get nice, connected traces is to copy the HTTP headers of the incoming request to any outgoing HTTP requests, if they haven't done so already.
 
@@ -132,7 +132,7 @@ Each of them are coupled with:
 - An *OpenTracing* compatible [Jaeger](https://www.jaegertracing.io/) agent for HTTP request tracing
 - A [Fluent Bit](https://fluentbit.io/) agent to pick up logs from files on a shared volume and forward them to the central log aggregator *(see below the diagram)*
 
-{{% img "https://raw.githubusercontent.com/rycus86/podlike/master/examples/modernized/components.png" "Modernized stack components" %}}
+![Modernized stack components](https://raw.githubusercontent.com/rycus86/podlike/master/examples/modernized/components.png)
 
 The stack also includes quite a few other services to make it *modern*:
 

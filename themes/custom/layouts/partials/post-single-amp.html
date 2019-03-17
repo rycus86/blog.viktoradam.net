@@ -18,6 +18,32 @@
     {{ end }}
 
     <section class="post-content">
-        {{ .Content }}
+        {{ .Scratch.Set "amp-content" .Content }}
+        {{ range $imgTag := findRE "<img [^>]+>" .Content }}
+            {{ $content := $.Scratch.Get "amp-content" }}
+
+            {{ $imageRef := replaceRE ".*src=\"([^\"]+)\".*" "$1" $imgTag }}
+            {{ $imageAlt := replaceRE ".*alt=\"([^\"]+)\".*" "$1" $imgTag }}
+
+            {{ if hasPrefix $imageRef "http" }}
+                <!-- hacks until I figure out something better for getting the dimensions of remote images -->
+                {{ if and (in $imageRef "#default") (in $.Page.Permalink "continuous-integration-with-travis-ci") }}
+                    {{ $.Scratch.Set "amp-image-tag" (printf `<amp-img src="%s" alt="%s" width="100" height="20" layout="fixed"></amp-img>` $imageRef $imageAlt) }}
+                {{ else }}
+                    {{ $.Scratch.Set "amp-image-tag" (printf `<amp-img src="%s" alt="%s" width="600" height="400" layout="responsive"></amp-img>` $imageRef $imageAlt) }}
+                {{ end }}
+            {{ else }}
+                {{ with imageConfig (printf "assets/%s" $imageRef) }}
+                    {{ with (resources.Get $imageRef).Resize (printf "%dx q50 Lanczos" .Width) }}
+                    {{ $.Scratch.Set "amp-image-tag" (printf `<amp-img src="%s" alt="%s" width="%d" height="%d" layout="responsive"></amp-img>` .Permalink $imageAlt .Width .Height) }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+
+            {{ $content := replace $content $imgTag ($.Scratch.Get "amp-image-tag") }}
+
+            {{ $.Scratch.Set "amp-content" $content }}
+        {{ end }}
+        {{ .Scratch.Get "amp-content" | safeHTML }}
     </section>
 </article>

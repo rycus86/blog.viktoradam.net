@@ -190,7 +190,7 @@ services:
 
 Finally, if you're more of a *visual type* of person, this is how the workflow looks like again, drawn using the *brilliant* [PlantUML](http://plantuml.com/).
 
-{{% img "/images/posts/2018/02/dns-ssl-automation.png" "Workflow" %}}
+![Workflow](/images/posts/2018/02/dns-ssl-automation.png)
 
 # Wrap up
 
