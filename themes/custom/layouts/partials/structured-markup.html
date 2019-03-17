@@ -17,17 +17,19 @@
         }
     },
     {{if .Params.authors}}{{with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0))}}
-        {{ $authorImage := .Params.image }}
-        {{ $imgAuthor := (resources.Get $authorImage).Resize "200x200 q75 Lanczos" }}
     "author": {
         "@type": "Person",
         "name": "{{.Title}}",
+        {{if .Params.image}}
+        {{ $authorImage := .Params.image }}
+        {{ $imgAuthor := (resources.Get $authorImage).Resize "200x200 q75 Lanczos" }}
         "image": {
             "@type": "ImageObject",
             "url": "{{ $imgAuthor.Permalink }}",
             "width": {{ $imgAuthor.Width }},
             "height": {{ $imgAuthor.Height }}
         },
+        {{end}}
         "url": "{{.Permalink}}",
         "sameAs": [{{/* TODO should implement this properly */}}
             "https://github.com/{{$.Site.Params.GithubName}}",
@@ -39,14 +41,16 @@
     "url": "{{.Permalink}}",
     "datePublished": "{{.Date.Format "2006-01-02T15:04:05.000Z"}}",
     "dateModified": "{{.Date.Format "2006-01-02T15:04:05.000Z"}}",
+    {{if .Params.Image}}
     "image": {
-        "@type": "ImageObject",{{/* TODO could check if there's an image*/}}
+        "@type": "ImageObject",
         {{ $postImage := .Params.image }}
         {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
         "url": "{{ $imgPost.Permalink }}",
         "width": {{ $imgPost.Width }},
         "height": {{ $imgPost.Height }}
     },
+    {{end}}
     "keywords": "{{ range $index, $tag := .Params.tags }}{{ if gt $index 0}}, {{end}}{{$tag}}{{end}}",
     "description": "{{ trim (.Params.metaDescription | default .Summary | plainify | safeHTML) "\n" }}",
     "mainEntityOfPage": {
