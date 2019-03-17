@@ -10,8 +10,8 @@ media_folder: "assets/images/posts"
 public_folder: "/images/posts"
 
 collections:
-  - name: "posts"
-    label: "Posts"
+  - name: "post"
+    label: "Post"
     folder: "content/posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
