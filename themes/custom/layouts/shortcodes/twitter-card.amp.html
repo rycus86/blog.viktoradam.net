@@ -1,4 +1,3 @@
-<script async custom-element="amp-twitter" src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"></script>
 <amp-twitter width="{{ .Get "width" | default "400" }}" height="{{ .Get "height" | default "200" }}"
     data-tweetid="{{ .Get "tweet-id" }}" layout="responsive">
     {{ $placeholder := replaceRE "<blockquote[^>]+>" "<blockquote placeholder>" .Inner -}}
