@@ -1,7 +1,7 @@
 User-agent: *
 Sitemap: {{ printf "sitemap.xml" | absURL }}
 {{- if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production") }}
-{{/* Nothing here */}}
+Disallow: /admin/
 {{ else }}
 Disallow: /
 {{ end }}
