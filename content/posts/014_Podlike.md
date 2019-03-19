@@ -53,9 +53,9 @@ If you have time and resources to look into Kubernetes, learn the concepts, figu
 
 This is not to say, it's not worth it to invest in Kubernetes, it is, definitely. I'm only suggesting, going through the Docker to Compose to Swarm route is more straightforward, than jumping onto Kubernetes. Check out this excellent thread from [Joe Beda](https://twitter.com/jbeda):
 
-{{% twitter-card tweet-id="993978918196531200" %}}
+{{% embed-tweet tweet-id="993978918196531200" %}}
 <blockquote class="twitter-tweet" data-lang="en-gb"><p lang="en" dir="ltr">I made the mistake of reading the comments on HN around Kubernetes and there is a common thread around Kubernetes being too complex.  This is something that I&#39;ve been thinking quite a bit about for quite a long time. /1</p>&mdash; Joe Beda (@jbeda) <a href="https://twitter.com/jbeda/status/993978918196531200?ref_src=twsrc%5Etfw">8 May 2018</a></blockquote>
-{{% /twitter-card %}}
+{{% /embed-tweet %}}
 
 Now, that the motivation for this application is introduced, let's talk about what it is *so far*!
 

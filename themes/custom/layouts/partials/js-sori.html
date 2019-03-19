@@ -1,7 +1,15 @@
+{{ if in .RawContent "```" }}
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+{{ if or (in .RawContent "```yml") (in .RawContent "```yaml") }}
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js" integrity="sha256-tvm0lHsuUZcOfj/0C9xJTU4OQx5KpUgxUcAXLX5kvwA=" crossorigin="anonymous"></script>
+{{ end }}
+{{ if in .RawContent "```docker" }}
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js" integrity="sha256-2axosoqkcFJ3cXezszojJ8/PdK8VCYVPOwNq7ersKfk=" crossorigin="anonymous"></script>
+{{ end }}
+{{ if in .RawContent "```go" }}
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js" integrity="sha256-LVuWfOU0rWFMCJNl1xb3K2HSWfxtK4IPbqEerP1P83M=" crossorigin="anonymous"></script>
+{{ end }}
+{{ end }}
 
 <script>
 // NOTE: Scroll performance is poor in Safari

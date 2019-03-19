@@ -101,7 +101,7 @@ You can do all sorts of *fancy* things with *Fluentd*, check out their [document
 
 I also build and store a Docker image for *Fluentd* in my private registry. I needed to extend their Docker image to include the *Elasticsearch* plugin. It was pretty simple:
 
-```Dockerfile
+```dockerfile
 FROM fluent/fluentd:v1.0
 RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "2.4.0"]
 ```
