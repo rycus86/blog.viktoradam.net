@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en-US{{ end }}">
 <head>
-    {{ if .Site.Params.GoogleAnalyticsId }}
+    {{ if .Site.Params.GoogleAnalyticsId }}{{ if not (in (string .Site.BaseURL) "http://1") }}{{/* localhost */}}
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.GoogleAnalyticsId }}"></script>
     <script>
@@ -11,7 +11,7 @@
 
       gtag('config', '{{ .Site.Params.GoogleAnalyticsId }}');
     </script>
-    {{ end }}
+    {{ end }}{{ end }}
 
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

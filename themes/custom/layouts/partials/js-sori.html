@@ -11,6 +11,10 @@
 {{ end }}
 {{ end }}
 
+{{ if in .RawContent "{{% embed-tweet" }}
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{ end }}
+
 <script>
 // NOTE: Scroll performance is poor in Safari
 // - this appears to be due to the events firing much more slowly in Safari.

@@ -1,4 +1,9 @@
-{{ if ne .Params.comments false}}
+{{ if ne .Params.comments false }}
+{{ if in (string .Site.BaseURL) "http://1" }}{{/* localhost */}}
+<section class="post-full-comments">
+    <blockquote>Disqus thread disabled on localhost</blockquote>
+</section>
+{{ else }}
 {{ if .Site.DisqusShortname }}
 <section class="post-full-comments">
 <div id="disqus_thread"></div>
@@ -46,4 +51,4 @@ if ( current_url.indexOf( '#comment' ) !== -1 ) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </section>
-{{ end }}{{ end }}
+{{ end }}{{ end }}{{ end }}

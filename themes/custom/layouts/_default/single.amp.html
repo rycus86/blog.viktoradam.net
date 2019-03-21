@@ -1,6 +1,6 @@
 {{ partial "head-amp" . }}
 <body class="amp-template">
-    {{ if .Site.Params.GoogleAnalyticsId }}
+    {{ if .Site.Params.GoogleAnalyticsId }}{{ if not (in (string .Site.BaseURL) "http://1") }}{{/* localhost */}}
     <amp-analytics type="googleanalytics">
     <script type="application/json">
     {
@@ -16,7 +16,7 @@
     }
     </script>
     </amp-analytics>
-    {{ end }}
+    {{ end }}{{ end }}
 
     {{ partial "header-amp" . }}
 
