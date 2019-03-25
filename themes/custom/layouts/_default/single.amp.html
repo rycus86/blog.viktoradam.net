@@ -1,6 +1,6 @@
 {{ partial "head-amp" . }}
 <body class="amp-template">
-    {{ if .Site.Params.GoogleAnalyticsId }}{{ if not (in (string .Site.BaseURL) "http://1") }}{{/* localhost */}}
+    {{ if .Site.Params.GoogleAnalyticsId }}{{- if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production") }}
     <amp-analytics type="googleanalytics">
     <script type="application/json">
     {
