@@ -21,7 +21,7 @@ command = "cp -r assets/images static/ && hugo --gc --minify --buildFuture -b $D
 HUGO_VERSION = "0.54.0"
 
 [context.branch-deploy]
-command = "cp -r assets/images static/ && hugo --gc --minify -b $DEPLOY_PRIME_URL"
+command = "cp -r assets/images static/ && hugo --gc --minify --buildFuture --buildDrafts -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy.environment]
 HUGO_VERSION = "0.54.0"
