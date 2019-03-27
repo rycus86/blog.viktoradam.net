@@ -1,10 +1,8 @@
 <div class="floating-header">
   <div class="floating-header-logo">
-    <a href="{{"/" | absURL}}">
-      {{ if .Site.Params.logoImage }}
-      {{ $logoImage := .Site.Params.logoImage }}
-      {{ $imgLogo := (resources.Get $logoImage).Resize "25x25 q90 Lanczos" }}
-      <img src="{{ $imgLogo.Permalink }}" alt="{{.Site.Title}}" />{{end}}
+    <a href="{{ $.Site.BaseURL }}">
+      {{ with ($.Site.GetPage "images").Resources.GetMatch "logo-25.*" }}
+      <img src="{{ .Permalink }}" alt="{{$.Site.Title}}" />{{end}}
       <span>{{.Site.Title}}</span>
     </a>
   </div>

@@ -1,9 +1,8 @@
 {{ $firstTag := first 1 .Params.tags }}
 {{ $posts := (where .Site.RegularPages ".Params.tags" "intersect" $firstTag) }}{{ $postCount := len $posts }}
 {{if ge $postCount 3}}{{ $currentPage := . }}
-{{ $mainCover := .Site.Params.mainCover }}
-<article class="read-next-card" {{if $mainCover}}{{ $imgCover := (resources.Get $mainCover).Resize "600x q50 Lanczos" }}
-            style="background-image: url({{ $imgCover.Permalink }});" {{else}}style="background-color: #090a0b;"{{end}}>
+<article class="read-next-card" {{with ($.Site.GetPage "images").Resources.GetMatch "cover.*" }}
+            style="background-image: url({{ .Permalink }});" {{else}}style="background-color: #090a0b;"{{end}}>
     <header class="read-next-card-header">
         <small class="read-next-card-header-sitetitle">&mdash; {{.Site.Title}} &mdash;</small>
         {{if .Params.tags }}{{ range $index, $tag := .Params.tags }}{{if lt $index 1}}

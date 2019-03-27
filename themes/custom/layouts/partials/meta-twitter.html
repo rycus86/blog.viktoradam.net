@@ -1,9 +1,7 @@
 {{ if .IsPage }} <!-- Credit V JEANTET -->
-    {{ if .Params.image }}
-    {{ $postImage := .Params.image }}
-    {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
+    {{ with .Resources.GetMatch "cover.*" }}
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image" content="{{ $imgPost.Permalink }}"/>
+    <meta name="twitter:image" content="{{ .Permalink }}"/>
     {{ else }}
     <meta name="twitter:card" content="summary"/>
     {{ end }}
@@ -16,8 +14,8 @@
     <meta name="twitter:data2" content="{{ range $idx, $tag := .Params.tags }}{{if gt $idx 0}}, {{end}}{{$tag}}{{end}}" />
 {{ else }}
     <meta name="twitter:card" content="summary"/>
-    {{ with .Site.Params.mainCover }}{{ $imgCover := (resources.Get .).Resize "600x q50 Lanczos" }}
-    <meta name="twitter:image" content="{{ $imgCover.Permalink }}"/>{{ end }}
+    {{with ($.Site.GetPage "images").Resources.GetMatch "cover.*" }}
+    <meta name="twitter:image" content="{{ .Permalink }}"/>{{ end }}
 {{ end }} <!-- Twitter Card data -->
     <meta name="twitter:title" content="{{ if .IsHome }}{{ .Title }}{{ else }}{{ trim (.Params.MetaTitle | default .Title) "\n" }} &middot; {{ .Site.Title }}{{ end }}"/>
     {{if .IsPage}}

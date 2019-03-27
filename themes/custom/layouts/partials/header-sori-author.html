@@ -1,10 +1,8 @@
-<header class="site-header outer">
+<header class="site-header outer"{{ with .Resources.GetMatch "cover.*" }} style="background-image: url({{ .Permalink }})"{{end}}>
   <div class="inner">
     <nav class="site-nav">
-      <div class="site-nav-left">{{ if .Site.Params.logoImage }}
-        {{ $logoImage := .Site.Params.logoImage }}
-        {{ $imgLogo := (resources.Get $logoImage).Resize "25x25 q90 Lanczos" }}
-        <a class="site-nav-logo" href="{{.Site.BaseURL}}"><img src="{{ $imgLogo.Permalink }}" alt="{{ .Site.Title }}" /></a>{{end}}
+      <div class="site-nav-left">{{ with ($.Site.GetPage "images").Resources.GetMatch "logo-25.*" }}
+        <a class="site-nav-logo" href="{{ $.Site.BaseURL }}"><img src="{{ .Permalink }}" alt="{{ $.Site.Title }}" /></a>{{end}}
 
         <ul class="nav" role="menu">
         {{ $currentNode := . }}
@@ -37,8 +35,8 @@
     </nav>
 
     <div class="site-header-content">
-        {{if .Params.image}}{{ $imgAuthor := (resources.Get .Params.image).Resize "100x100 q75 Lanczos" }}
-            <img class="author-profile-image" src="{{ $imgAuthor.Permalink }}" alt="{{.Title}}" />
+        {{ with .Resources.GetMatch "photo-100.*" }}
+            <img class="author-profile-image" src="{{ .Permalink }}" alt="{{.Title}}" />
         {{end}}
         <h1 class="site-title">{{.Title}}</h1>{{$.Scratch.Set "total" (len .Data.Pages)}}
         <h2 class="author-bio">{{.Params.bio}}</h2>

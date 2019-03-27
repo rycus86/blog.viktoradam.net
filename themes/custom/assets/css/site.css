@@ -506,6 +506,11 @@ The first (most recent) post in the list is styled to be bigger than the others 
     display: none;
 }
 
+.author-template .site-header, .tag-template .site-header {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
 
 /* Adjust some margins for smaller screens */
 @media (max-width: 650px) {
