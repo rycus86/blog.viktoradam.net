@@ -1,10 +1,9 @@
-{{ $logoImage := .Site.Params.logoImage }}
-{{ $imgLogo := (resources.Get $logoImage).Resize "45x45 q90 Lanczos" }}
 <header class="site-header outer">
     <div class="inner">
         <div class="site-header-content">
             <h1 class="site-title">
-                <img class="site-logo" src="{{ $imgLogo.Permalink }}" alt="{{ .Title }}" />
+                {{ with ($.Site.GetPage "images").Resources.GetMatch "logo-45.*" }}
+                <img class="site-logo" src="{{ .Permalink }}" alt="{{ $.Title }}" />{{ end }}
                 {{ .Site.Title }}
             </h1>
             <h2 class="site-description">{{ .Site.Params.Description }}

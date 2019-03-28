@@ -15,47 +15,23 @@
         </section>
     </header>
 
-    {{ if .Params.image }}
-    {{ $postImage := .Params.image }}
-    {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
-    <figure class="post-full-image" style="background-image: url({{ $imgPost.Permalink }})"></figure>
+    {{ with .Resources.GetMatch "cover.*" }}
+    <figure class="post-full-image" style="background-image: url({{ .Permalink }})"></figure>
     {{ else }}
     <figure class="post-full-image"></figure>
     {{ end }}
 
     <section class="post-full-content">
         <div class="kg-card-markdown">
-        {{ .Scratch.Set "amp-content" .Content }}
-        {{ range $imgTag := findRE "<img [^>]+>" .Content }}
-            {{ $content := $.Scratch.Get "amp-content" }}
-
-            {{ $imageRef := replaceRE ".*src=\"([^\"]+)\".*" "$1" $imgTag }}
-            {{ $imageAlt := replaceRE ".*alt=\"([^\"]+)\".*" "$1" $imgTag }}
-
-            {{ if hasPrefix $imageRef "http" }}
-                {{ $.Scratch.Set "hugo-image-tag" $imgTag }}
-            {{ else }}
-                {{ with imageConfig (printf "assets/%s" $imageRef) }}
-                    {{ with (resources.Get $imageRef).Resize (printf "%dx q50 Lanczos" .Width) }}
-                    {{ $.Scratch.Set "hugo-image-tag" (printf `<img src="%s" alt="%s"/>` .Permalink $imageAlt) }}
-                    {{ end }}
-                {{ end }}
-            {{ end }}
-
-            {{ $content := replace $content $imgTag ($.Scratch.Get "hugo-image-tag") }}
-
-            {{ $.Scratch.Set "amp-content" $content }}
-        {{ end }}
-        {{ .Scratch.Get "amp-content" | safeHTML }}
+        {{ .Content }}
         </div>
     </section>
 
-    {{if .Params.authors}}{{with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0))}}
+    {{if .Params.authors}}{{with $author := $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0))}}
     <footer class="post-full-footer">
       <section class="author-card">
-        {{ $authorImage := .Params.image }}
-        {{ $imgAuthor := (resources.Get $authorImage).Resize "60x60 q75 Lanczos" }}
-        <img class="author-profile-image" src="{{ $imgAuthor.Permalink }}" alt="{{.Title}}" />
+        {{ with .Resources.GetMatch "photo-60.*" }}
+        <img class="author-profile-image" src="{{ .Permalink }}" alt="{{ $author.Title }}" />{{ end }}
         <section class="author-card-content">
             <h4 class="author-card-name"><a href="{{.Permalink}}">{{.Title}}</a></h4>
             <p>{{.Params.bio}}</p>

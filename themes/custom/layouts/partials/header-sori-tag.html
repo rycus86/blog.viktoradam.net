@@ -1,10 +1,8 @@
-<header class="site-header outer">
+<header class="site-header outer"{{with ($.Site.GetPage "images").Resources.GetMatch "cover.*" }} style="background-image: url({{ .Permalink }})"{{end}}>
   <div class="inner">
     <nav class="site-nav">
-      <div class="site-nav-left">{{ if .Site.Params.logoImage }}
-        {{ $logoImage := .Site.Params.logoImage }}
-        {{ $imgLogo := (resources.Get $logoImage).Resize "25x25 q90 Lanczos" }}
-        <a class="site-nav-logo" href="{{.Site.BaseURL}}"><img src="{{ $imgLogo.Permalink }}" alt="{{ .Site.Title }}" /></a>{{end}}
+      <div class="site-nav-left">{{ with ($.Site.GetPage "images").Resources.GetMatch "logo-25.*" }}
+        <a class="site-nav-logo" href="{{ $.Site.BaseURL }}"><img src="{{ .Permalink }}" alt="{{ $.Site.Title }}" /></a>{{end}}
 
         <ul class="nav" role="menu">
         {{ $currentNode := . }}

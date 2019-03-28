@@ -13,13 +13,11 @@
 {{ else }}
     <meta property="og:type" content="website" />
     <meta property="og:description" content="{{ trim (.Site.Params.metadescription | default .Site.Params.description | plainify) "\n" }}" />
-{{ end }}{{if .Params.image }}
-    {{ $postImage := .Params.image }}
-    {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
-    <meta property="og:image" content="{{ $imgPost.Permalink }}"/>
-    <meta property="og:image:width" content="{{ $imgPost.Width }}" />
-    <meta property="og:image:height" content="{{ $imgPost.Height }}" />
-{{else}}{{with .Site.Params.mainCover}}{{ $imgCover := (resources.Get .).Resize "600x q50 Lanczos" }}
-    <meta property="og:image" content="{{ $imgCover.Permalink }}"/>
-    <meta property="og:image:width" content="{{ $imgCover.Width }}" />
-    <meta property="og:image:height" content="{{ $imgCover.Height }}" />{{end}}{{end}}
+{{ end }}{{ with .Resources.GetMatch "cover.*" }}
+    <meta property="og:image" content="{{ .Permalink }}"/>
+    <meta property="og:image:width" content="{{ .Width }}" />
+    <meta property="og:image:height" content="{{ .Height }}" />
+{{else}}{{with ($.Site.GetPage "images").Resources.GetMatch "cover.*" }}
+    <meta property="og:image" content="{{ .Permalink }}"/>
+    <meta property="og:image:width" content="{{ .Width }}" />
+    <meta property="og:image:height" content="{{ .Height }}" />{{end}}{{end}}

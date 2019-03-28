@@ -1,13 +1,11 @@
 {{ range $index, $element := .Paginator.Pages }}
 {{ with $element }}
-    <article class="post-card post{{if not .Params.image}} no-image{{end}}"> 
-        {{if .Params.image}}
-        <a class="post-card-image-link" href="{{ .Permalink }}">
-            {{ $postImage := .Params.image }}
-            {{ if eq $index 0 }}{{ .Scratch.Set "coverSize" "x400" }}
-            {{ else }}{{ .Scratch.Set "coverSize" "x200" }}{{ end }}
-            {{ $imgPost := (resources.Get $postImage).Resize (printf "%s q75 Lanczos" (.Scratch.Get "coverSize")) }}
-            <div class="post-card-image" style="background-image: url({{ $imgPost.Permalink }})"></div>
+    <article class="post-card post{{if not (.Resources.GetMatch "cover.*") }} no-image{{end}}">
+        {{ with .Resources.GetMatch "cover.*" }}
+        <a class="post-card-image-link" href="{{ $element.Permalink }}">
+            {{ with .Resize "x200 q85 Lanczos" }}
+            <div class="post-card-image" style="background-image: url({{ .Permalink }})"></div>
+            {{ end }}
         </a>
         {{end}}
     
@@ -29,11 +27,11 @@
           </a>
     
           <footer class="post-card-meta">
-              {{if .Params.authors}}{{with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0))}}
-                {{ $authorImage := .Params.image }}
-                {{ $imgAuthor := (resources.Get $authorImage).Resize "60x60 q75 Lanczos" }}
-              <img class="author-profile-image" src="{{ $imgAuthor.Permalink }}" alt="{{ .Title }}" />
-              {{end}}{{end}}
+              {{if .Params.authors}}
+                {{ with $author := $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0)) }}
+                {{ with .Resources.GetMatch "photo-60.*" }}
+              <img class="author-profile-image" src="{{ .Permalink }}" alt="{{ $author.Title }}" />
+              {{end}}{{end}}{{end}}
               <span class="post-card-reading-time">{{.ReadingTime}} min read</span>
               {{if .Params.authors}}{{with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0))}}
               <span class="post-card-author"><a href="{{.Permalink}}">{{.Title}}</a></span>

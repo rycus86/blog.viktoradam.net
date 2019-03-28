@@ -1,5 +1,4 @@
-{{ $logoImage := .Site.Params.logoImage }}
-{{ $imgLogo := (resources.Get $logoImage).Resize "60x60 q90 Lanczos" }}
+{{ $imgLogo := ($.Site.GetPage "images").Resources.GetMatch "logo-60.*" }}
 
 {{ if .IsPage }}
     <script type="application/ld+json">
@@ -20,14 +19,12 @@
     "author": {
         "@type": "Person",
         "name": "{{.Title}}",
-        {{if .Params.image}}
-        {{ $authorImage := .Params.image }}
-        {{ $imgAuthor := (resources.Get $authorImage).Resize "200x200 q75 Lanczos" }}
+        {{ with .Resources.GetMatch "photo-200.*" }}
         "image": {
             "@type": "ImageObject",
-            "url": "{{ $imgAuthor.Permalink }}",
-            "width": {{ $imgAuthor.Width }},
-            "height": {{ $imgAuthor.Height }}
+            "url": "{{ .Permalink }}",
+            "width": {{ .Width }},
+            "height": {{ .Height }}
         },
         {{end}}
         "url": "{{.Permalink}}",
@@ -41,14 +38,12 @@
     "url": "{{.Permalink}}",
     "datePublished": "{{.Date.Format "2006-01-02T15:04:05.000Z"}}",
     "dateModified": "{{.Date.Format "2006-01-02T15:04:05.000Z"}}",
-    {{if .Params.Image}}
+    {{ with .Resources.GetMatch "cover.*" }}
     "image": {
         "@type": "ImageObject",
-        {{ $postImage := .Params.image }}
-        {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
-        "url": "{{ $imgPost.Permalink }}",
-        "width": {{ $imgPost.Width }},
-        "height": {{ $imgPost.Height }}
+        "url": "{{ .Permalink }}",
+        "width": {{ .Width }},
+        "height": {{ .Height }}
     },
     {{end}}
     "keywords": "{{ range $index, $tag := .Params.tags }}{{ if gt $index 0}}, {{end}}{{$tag}}{{end}}",
@@ -91,8 +86,6 @@
 }
     </script>
 {{ else }}
-    {{ $mainCover := .Site.Params.mainCover }}
-    {{ $imgCover := (resources.Get $mainCover).Resize "600x q50 Lanczos" }}
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -103,20 +96,22 @@
                 "logo": {
                     "@type": "ImageObject",
                     "url": "{{ $imgLogo.Permalink }}",
-                    "width": 60,
-                    "height": 60
+                    "width": {{ $imgLogo.Width }},
+                    "height": {{ $imgLogo.Height }}
                 }
             },
             "url": "{{.Site.BaseURL}}",
+            {{ with ($.Site.GetPage "images").Resources.GetMatch "cover.*" }}
             "image": {
                 "@type": "ImageObject",
-                "url": "{{ $imgCover.Permalink }}",
-                "width": {{ $imgCover.Width }},
-                "height": {{ $imgCover.Height }}
+                "url": "{{ .Permalink }}",
+                "width": {{ .Width }},
+                "height": {{ .Height }}
             },
+            {{end}}
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": "{{.Site.Params.BaseURL}}"
+                "@id": "{{.Site.BaseURL}}"
             },
             "description": "{{ .Site.Params.metadescription | default .Site.Params.description }}"
         }

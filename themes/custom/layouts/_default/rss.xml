@@ -19,17 +19,15 @@
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
       <guid>{{ .Permalink }}</guid>
-      <description>{{ trim ((.Params.MetaDescription | default .Description) | default (substr .Summary 0 160) | plainify) "\n" }}</description>
+      {{ `<description><![CDATA[` | safeHTML }}{{ trim ((.Params.MetaDescription | default .Description) | default (substr .Summary 0 160) | plainify) "\n" }}]]></description>
       {{ range .Params.tags -}}
       {{ `<category><![CDATA[` | safeHTML }}{{ . }}]]></category>
       {{ end }}
       {{ if .Params.authors}}{{with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (index .Params.authors 0)) -}}
       {{ `<dc:creator><![CDATA[` | safeHTML }}{{.Title}}]]></dc:creator>
       {{ end }}{{ end }}
-      {{ if .Params.image -}}
-        {{ $postImage := .Params.image }}
-        {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
-        <media:content url="{{ $imgPost.Permalink }}" medium="image" />
+      {{ with .Resources.GetMatch "cover.*" -}}
+        <media:content url="{{ .Permalink }}" medium="image" />
       {{ end }}
     </item>
     {{ end }}

@@ -9,11 +9,9 @@
         </section>
     </header>
 
-    {{ if .Params.image }}
+    {{ with .Resources.GetMatch "cover.*" }}
     <figure class="post-image">
-        {{ $postImage := .Params.image }}
-        {{ $imgPost := (resources.Get $postImage).Resize "x800 q50 Lanczos" }}
-        <amp-img src="{{ $imgPost.Permalink }}" width="{{ $imgPost.Width }}" height="{{ $imgPost.Height }}" layout="responsive"></amp-img>
+        <amp-img src="{{ .Permalink }}" width="{{ .Width }}" height="{{ .Height }}" layout="responsive"></amp-img>
     </figure>
     {{ end }}
 
@@ -33,10 +31,8 @@
                     {{ $.Scratch.Set "amp-image-tag" (printf `<amp-img src="%s" alt="%s" width="600" height="400" layout="responsive"></amp-img>` $imageRef $imageAlt) }}
                 {{ end }}
             {{ else }}
-                {{ with imageConfig (printf "assets/%s" $imageRef) }}
-                    {{ with (resources.Get $imageRef).Resize (printf "%dx q50 Lanczos" .Width) }}
+                {{ with $.Resources.GetMatch $imageRef }}
                     {{ $.Scratch.Set "amp-image-tag" (printf `<amp-img src="%s" alt="%s" width="%d" height="%d" layout="responsive"></amp-img>` .Permalink $imageAlt .Width .Height) }}
-                    {{ end }}
                 {{ end }}
             {{ end }}
 
