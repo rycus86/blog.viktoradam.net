@@ -1,5 +1,6 @@
 .idea/
 .venv/
+.netlify/
 
 # generated site
 public/
