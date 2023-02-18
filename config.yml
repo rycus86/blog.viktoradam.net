@@ -8,7 +8,7 @@ params:
   description: Open-source adventures with containers, free hosted services and CI/CD
   mainCover: images/cover-min.jpg
   logoImage: images/logo-min.jpg
-  googleAnalyticsId: UA-100998190-4
+  googleAnalyticsId: G-NNB1H3125W
   githubName: rycus86
   twitterName: rycus86
   linkedinName: viktoradam
